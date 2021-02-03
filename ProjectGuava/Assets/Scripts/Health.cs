@@ -4,18 +4,20 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 public class Health : MonoBehaviour
 {
+    public Vector2 respawn;
     public bool isDead;
     public int maxHealth = 3;
     public int currentHealth;
     void Start()
     {
         isDead = false;
+        currentHealth = maxHealth;
     }
 
-    // Update is called once per frame
+    
     void Update()
     {
-        currentHealth = maxHealth;
+       
         if (gameObject.transform.position.y < -6)
         { 
             isDead = true;
@@ -25,7 +27,8 @@ public class Health : MonoBehaviour
         {
             currentHealth = currentHealth - 1;
             StartCoroutine("Die");
-            SceneManager.LoadScene(1);
+            Respawn();
+            isDead = false;
         }
 
         if (currentHealth == 0)
@@ -33,6 +36,11 @@ public class Health : MonoBehaviour
             //Loads death screen :D
             SceneManager.LoadScene(2);
         }
+    }
+
+    public void Respawn()
+    {
+        transform.position = respawn; ;
     }
     IEnumerator Die()
     {
