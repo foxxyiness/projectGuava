@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -8,10 +9,11 @@ public class PlayerMovement : MonoBehaviour
     public bool faceRight;
     public float movement;
     public int powerJump = 200;
+    public bool isGrounded;
     public void PlayerMove()
     {
         movement = Input.GetAxis("Horizontal");
-        if (Input.GetButtonDown ("Jump"))
+        if (Input.GetButtonDown ("Jump") && isGrounded == true)
         {
             Jump();
         }
@@ -38,6 +40,7 @@ public class PlayerMovement : MonoBehaviour
     public void Jump()
     {
         GetComponent<Rigidbody2D>().AddForce (Vector2.up * powerJump);
+        isGrounded = false;
     }
     public void FlipPlayer()
     {
@@ -45,5 +48,14 @@ public class PlayerMovement : MonoBehaviour
         Vector2 localScale = gameObject.transform.localScale;
         localScale.x *= -1;
         transform.localScale = localScale;
+    }
+
+    public void OnCollisionEnter2D(Collision2D col)
+    {
+        Debug.Log("Player has collided with " + col.collider.name); 
+        if (col.gameObject.tag == "Ground")
+        {
+            isGrounded = true;
+        }
     }
 }
