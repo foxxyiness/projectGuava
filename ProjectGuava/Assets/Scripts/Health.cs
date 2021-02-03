@@ -2,12 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+
 public class Health : MonoBehaviour
 {
     public Vector2 respawn;
     public bool isDead;
     public int maxHealth = 3;
     public int currentHealth;
+   
     void Start()
     {
         isDead = false;
@@ -17,7 +20,6 @@ public class Health : MonoBehaviour
     
     void Update()
     {
-       
         if (gameObject.transform.position.y < -6)
         { 
             isDead = true;
