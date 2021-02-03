@@ -6,8 +6,7 @@ public class Enemy : MonoBehaviour
 {
     public int speed;
     public int MoveX;
-
-    Health health;
+    public Health lemon;
     // Update is called once per frame
     void Update()
     {
@@ -18,7 +17,8 @@ public class Enemy : MonoBehaviour
             FlipPlayer();
             if(hit.collider.tag == "Player")
             {
-               
+                lemon.currentHealth = lemon.currentHealth - 1;
+                lemon.Respawn();
             }
         }
 
